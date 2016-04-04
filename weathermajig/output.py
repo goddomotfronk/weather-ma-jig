@@ -10,16 +10,16 @@ from weathermajig import cache
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-def output_verbose(forecast, place, **kargs):
+def output_verbose(forecast, place, units, **kargs):
     out = kargs
 
     current = forecast.get_current()
     today = forecast.get_today()
 
-    temp = "%s°F" % current.get('temperature')
+    temp = "%s" % current.get('temperature') + units
     time = datetime.fromtimestamp(current.get('time'))
-    high = '%s°F' % today.get('temperatureMax')
-    low = '%s°F' % today.get('temperatureMin')
+    high = '%s' % today.get('temperatureMax') + units
+    low = '%s' % today.get('temperatureMin') + units
 
     return '''
 {date}
@@ -50,14 +50,15 @@ def output_short(out):
 
 def make(conf, forecast):
     current = forecast.get_current()
+    units = '°F' if conf.get('units') == 'us' else '°C';
     out = {
-        'temp': "%s°F" % int(round(current.get('temperature'))),
+        'temp': "%s" % int(round(current.get('temperature'))) + units,
         'icon':  "%s"   % emoji.icon(current.get('icon')),
         'summary': "%s" % current.get('summary'),
     }
 
     if (conf.get('verbose')):
-        out = output_verbose(forecast, conf.get('place'), **out)
+        out = output_verbose(forecast, conf.get('place'), units, **out)
     else:
         out = output_short(out)
 

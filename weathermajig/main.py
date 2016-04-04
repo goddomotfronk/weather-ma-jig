@@ -12,8 +12,9 @@ def main():
     cache.check(conf)
     lat, lng = geo.get_loc(conf)
     api_key = conf.get('api_key')
+    units = conf.get('units') or 'us'
 
-    wthr = weather.Weather(api_key=api_key, lat=lat, lng=lng)
+    wthr = weather.Weather(api_key=api_key, lat=lat, lng=lng, units=units)
     output.make(conf, wthr)
 
 if __name__ == '__main__':
