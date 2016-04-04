@@ -5,7 +5,7 @@ import sys
 
 def get_emoji():
     platform = sys.platform
-    if platform.startswith('linux'):
+    if platform.startswith('linux') or platform.startswith('cygwin'):
         return {
             'sun': "☀",
             'snow': "❄",
