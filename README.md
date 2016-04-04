@@ -29,6 +29,8 @@ sudo python2 setup.py install
 # Dark sky api key
 api_key: 123456789notakey
 cache_dir: /tmp/weathermajig.cache
+# us (imperial) / si (metric)
+units: us
 ```
 
 * enjoy the weather
